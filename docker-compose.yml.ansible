@@ -9,7 +9,7 @@ services:
       - /matrix/synapse/storage/media-store:/data
     environment:
       - TZ=Europe/Berlin
-      - 'SYNUPKEEP_MEDIA_STORE_PATH=/matrix/synapse/storage/media-store/'
+      - 'SYNUPKEEP_MEDIA_STORE_PATH=/data/'
       # Password should be defined in matrix_postgres_connection_password in your vars.yml file
       - 'SYNUPKEEP_POSTGRES_CONNECTION_STRING=host=matrix-postgres port=5432 user=matrix dbname=synapse password=abcdefg
       - 'SYNUPKEEP_SYNAPSE_API_URL=https://matrix.domain.tld/'
