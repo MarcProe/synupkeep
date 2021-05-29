@@ -1,0 +1,26 @@
+version: '3'
+
+services:
+
+  app:
+    image: mserajnik/synupkeep:latest
+    command: cron # change to `run` to only run once instead of periodically via cron job
+    volumes:
+      - /matrix/synapse/storage/media-store:/data
+    environment:
+      - TZ=Europe/Berlin
+      - 'SYNUPKEEP_MEDIA_STORE_PATH=/matrix/synapse/storage/media-store/'
+      # Password should be defined in matrix_postgres_connection_password in your vars.yml file
+      - 'SYNUPKEEP_POSTGRES_CONNECTION_STRING=host=matrix-postgres port=5432 user=matrix dbname=synapse password=abcdefg
+      - 'SYNUPKEEP_SYNAPSE_API_URL=https://matrix.domain.tld/'
+      - 'SYNUPKEEP_SYNAPSE_AUTH_TOKEN=abcdefghijklmnopqrstuvwxyz'
+      - 'SYNUPKEEP_DELTA=2764800'
+      - 'SYNUPKEEP_LOGGING_LEVEL=DEBUG'
+      - 'SYNUPKEEP_DOCKER_CRON_SCHEDULE=0 4 * * *'
+    networks:
+      - matrix
+
+networks:
+  matrix:
+    external: true
+    name: matrix
